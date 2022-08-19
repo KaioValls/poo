@@ -16,23 +16,24 @@ public class Conta {
 		this.setSaldo(0);
 	}
 	
-	public void abrirConta() {
+	public void abrirConta(String c) {
+		this.setTipo(c);
 		this.setStatus(true);	
-		do {
-			System.out.println("Conta corrente (digite cc) ou Conta Poupança (digite cp)");
-			this.setTipo(tipo);
-		} while ( !tipo.equalsIgnoreCase("CC") && !tipo.equalsIgnoreCase("CP"));
 		if (this.getTipo().equalsIgnoreCase("cc")) {
-			this.setSaldo(saldo+=50);	
+			this.setSaldo(50);	
 		}else if(this.getTipo().equalsIgnoreCase("cp")) {
-			this.setSaldo(saldo+=150);
+			this.setSaldo(150);
 		}
+		System.out.println("Conta de "+ this.getDono()+" aberta.");
 	}
 	
 	public void fecharConta() {
 		if(this.getSaldo()!=0) {
-			System.out.println("Você não pode deletar sua conta!\n Saque ou pague o que  está pendente.");
-		}else this.setStatus(false);
+			System.out.println("Você não pode deletar sua conta!\nSaque ou pague o que  está pendente.");
+		}else {
+			this.setStatus(false);
+			System.out.println("Conta fechada com sucesso.");
+		}
 					
 	}
 	
@@ -40,13 +41,13 @@ public class Conta {
 		
 		if(this.getStatus()==true) {
 				this.setSaldo(this.getSaldo()+d);
+				System.out.println("Depósito realizado na contas de "+ this.getDono());
 		}else System.out.println("Você precisa abrir sua conta!");
 	}
 	
 	public void sacar(double d) {
 		if (this.getStatus()==true) {
 				if (d>this.getSaldo()) {
-					
 					System.out.println("você não pode sacar mais que R$"+this.getSaldo());
 				}else {
 					this.setSaldo(this.getSaldo()-d);
@@ -72,7 +73,7 @@ public class Conta {
 	
 	
 	public int getNumConta() {
-		return numConta;
+		return this.numConta;
 	}
 
 	public void setNumConta(int n) {
@@ -80,16 +81,15 @@ public class Conta {
 	}
 
 	public String getTipo() {
-		return tipo;
+		return this.tipo;
 	}
 
 	public void setTipo(String t) {
-		t = tec.next();
 		this.tipo = t;
 	}
 
 	public String getDono() {
-		return dono;
+		return this.dono;
 	}
 
 	public void setDono(String dono) {
@@ -97,7 +97,7 @@ public class Conta {
 	}
 
 	public double getSaldo() {
-		return saldo;
+		return this.saldo;
 	}
 
 	public void setSaldo(double saldo) {
@@ -105,7 +105,7 @@ public class Conta {
 	}
 
 	public boolean getStatus() {
-		return status;
+		return this.status;
 	}
 
 	public void setStatus(boolean status) {
@@ -113,8 +113,9 @@ public class Conta {
 	}
 	
 	public void status() {
+		System.out.println("------------------------------");
 		System.out.println("Numero da conta: "+this.getNumConta());
-		System.out.println("tipo: "+this.getTipo().toUpperCase());
+		System.out.println("tipo: "+this.getTipo());
 		System.out.println("Dono: "+this.getDono());
 		System.out.println("Saldo: "+this.getSaldo());
 		System.out.println("Status: "+this.getStatus());
